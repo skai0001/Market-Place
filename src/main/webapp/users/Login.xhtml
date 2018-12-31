@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://java.sun.com/jsf/core">
+	
+	<f:metadata>
+		<f:event type="postAddToView" listener="#{usersController.onPageLoaded()}"/>
+	</f:metadata>
+	
+    <h:head>
+        <title>Marketplace: Login</title>
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/main.css" rel="stylesheet"/>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	</h:head>
+	
+    <h:body>
+		<!-- Navigation bar -->
+		<ui:include src="/templates/Header.xhtml"/>	
+
+		<!-- Login dialog -->
+		<br/>
+		<br/>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="card">
+						<header class="card-header">
+							<h:link class="float-right btn btn-outline-primary mt-1" outcome="/users/Register" value="Register"/>
+							<h4 class="card-title mt-2">SIGN IN</h4>
+						</header>
+
+						<article class="card-body">
+							<h:form>								
+								<div class="form-group">
+									<h:outputLabel for="email" value="Your email"/>
+									<h:inputText styleClass="form-control" id="email" value="#{usersController.textFields.email}" a:placeholder="Email" maxlength="128"/>
+									<h:outputText style="color: #ff2100" rendered="#{usersController.textFields.emailError != null}" value="#{usersController.textFields.emailError}"/>
+								</div>
+
+								<div class="form-group">
+									<h:outputLabel for="password" value="Your password"/>
+									<h:inputSecret styleClass="form-control" id="password" value="#{usersController.textFields.password}" redisplay="true" maxlength="50"/>
+									<h:outputText style="color: #ff2100" rendered="#{usersController.textFields.passwordError != null}" value="#{usersController.textFields.passwordError}"/>
+								</div>
+
+								<div class="form-group">
+									<h:commandButton styleClass="btn btn-primary btn-block" id="loginButton" value="Login" action="#{usersController.onSignIn}"/>
+									<h:outputLabel>Account not verified yet? <h:link style="text-decoration: none" value="Verify here" outcome="/users/VerifyAccount"/></h:outputLabel>
+								</div>                                         
+							</h:form>
+						</article>
+						
+						<div class="border-top card-body text-center">
+							Forgot your password? <h:link outcome="ForgotPassword" value="Help"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+		<br/>
+		<br/>
+
+		<!-- Footer bar -->
+		<ui:include src="/templates/Footer.xhtml"/>	
+		
+    </h:body>
+	
+</html>

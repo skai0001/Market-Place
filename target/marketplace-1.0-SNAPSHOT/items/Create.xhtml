@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://java.sun.com/jsf/core">
+	
+    <h:head>
+        <title>Marketplace: Post An Ad</title>
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="../resources/css/main.css" rel="stylesheet"/>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	</h:head>
+	
+    <h:body>
+		<!-- Navigation bar -->
+		<ui:include src="/templates/Header.xhtml"/>	
+		
+		<section class="jumbotron text-center">
+			<div class="container">
+				<h1 class="jumbotron-heading">MARKETPLACE: POST AN AD</h1>
+				<p class="lead text-muted mb-0">
+					We don't have alot of space for unlimited ads, so free users can post upto 5 ads at a time!
+				</p>
+			</div>
+		</section>
+		
+		<h:form>
+			<div class="container">			
+				<div class="row">
+					<div class="col">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">Home</li>
+								<li class="breadcrumb-item">Categories</li>
+								<li class="breadcrumb-item"><h:link outcome="/index" value="#{itemsController.currentCategory}"/></li>
+								<li class="breadcrumb-item active" aria-current="page">Post An Ad</li>
+							</ol>
+						</nav>
+						
+						<div class="form-group">
+							<h:link styleClass="btn btn-link" outcome="/index">
+								<i class="fa fa-arrow-left"/> Go back
+							</h:link>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-4">
+						<div class="card bg-light mb-3">
+							<h4 class="card-header bg-success text-white text-uppercase">
+								<i class="fa fa-th-list"/> &nbsp;Checklist
+							</h4>
+							<div class="card-body">
+								<p><b>1</b> Ad Details <i class="fa fa-check" style="color: #adadad"/></p>
+								<p><b>2</b> Media <i class="fa fa-check" style="color: #adadad"/></p>
+								<p><b>3</b> Location <i class="fa fa-check" style="color: #adadad"/></p>
+								<p><b>4</b> Price <i class="fa fa-check" style="color: #adadad"/></p>
+								<p><b>5</b> Contact Information <i class="fa fa-check" style="color: #adadad"/></p>
+								<hr/>
+								<button type="submit" class="btn btn-secondary text-right">Submit Ad</button>
+								<small class="form-text text-muted">Your add seems to be ready</small>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col">
+						<div class="card">
+							<h4 class="card-header bg-info text-white text-uppercase">
+								<b>1</b> &nbsp;Ad Details
+							</h4>
+							<div class="card-body">
+								<div class="form-group">
+									<h:outputLabel for="category" value="Select your category you want to post your ad in..."/>
+									<br/>
+									<h:selectOneMenu value="#{createItemController.category}">
+										<f:selectItems value="#{createItemController.categories}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
+									</h:selectOneMenu>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="title" value="Ad Title"/>
+									<h:inputText styleClass="form-control" id="title" value="#{createItemController.title}" a:placeholder="Title" maxlength="50"/>
+									<h:outputText style="color: #ff2100" rendered="#{createItemController.titleError != null}" value="#{createItemController.titleError}"/>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="description" value="Description"/>
+									<h:inputTextarea styleClass="form-control" rows="5" cols="65" id="description" value="#{createItemController.description}" a:placeholder="Enter your item's description here..."/>
+									<h:outputText style="color: #ff2100" rendered="#{createItemController.descriptionError != null}" value="#{createItemController.descriptionError}"/>
+								</div>
+							</div>
+						</div>
+						
+						<br/>
+						
+						<div class="card">
+							<h4 class="card-header bg-info text-white text-uppercase">
+								<b>2</b> &nbsp;Media <i>(optional, but recommended)</i>
+							</h4>
+							<div class="card-body">
+								<h:outputLabel>
+									You can upload upto 8 Images and 1 Video (the limit is increased for <h:link outcome="/index" value="PRO Members"/>).<br/><br/>
+									The photos are rendered in atleast 200px (we recommend atleast 1000px).
+								</h:outputLabel>
+							</div>
+							
+							<hr/>
+							
+							<div class="card-body">
+								<h:outputLabel>
+									Images: <b>(8/8)</b>
+								</h:outputLabel>
+								<div class="card flex-row flex-wrap">
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+									<h:commandLink styleClass="card-body border-0">
+										<h:graphicImage value="https://media.healthday.com/Images/icimages/marijuana.jpg" width="128px" height="128px"/>
+									</h:commandLink>
+								</div>
+								<br/>
+								<div class="form-group">
+									<h:commandLink styleClass="btn btn-primary"><i class="fa fa-upload"/> Upload Image</h:commandLink>&nbsp;
+									<h:commandLink styleClass="btn btn-light"><i class="fa fa-trash"/> Delete Image</h:commandLink>&nbsp;
+									<h:commandLink styleClass="btn btn-light"><i class="fa fa-image"/> Set Ad Thumbnail</h:commandLink>&nbsp;
+								</div>
+							</div>
+							<div class="card-body">
+								<h:outputLabel>
+									Video: <b>(1/1)</b>
+								</h:outputLabel>
+								<div class="input-group input-group-sm">
+									<h:inputText styleClass="form-control" a:aria-describedby="inputGroup-sizing-sm" a:placeholder="Video URL"/>
+									<div class="input-group-append">
+										<button type="button" class="btn btn-secondary btn-number">
+											<i class="fa fa-check"></i> Verify
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<br/>
+						<br/>
+						
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+		<!-- Footer bar -->
+		<ui:include src="/templates/Footer.xhtml"/>	
+		
+    </h:body>
+	
+</html>

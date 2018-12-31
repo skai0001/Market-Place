@@ -1,0 +1,157 @@
+/*** FILTER SIDEBAR ***/
+
+.bloc_left_price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.category_block li:hover {
+    background-color: #007bff;
+}
+
+.category_block li:hover a {
+    color: #ffffff;
+}
+
+.category_block li a {
+    color: #343a40;
+}
+
+.product_rassurance {
+    padding: 10px;
+    margin-top: 15px;
+    background: #ffffff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.product_rassurance .list-inline {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.product_rassurance .list-inline li:hover {
+    color: #343a40;
+}
+
+.reviews_product .fa-star {
+    color: gold;
+}
+
+/*** PAGINATION BAR ***/
+
+.pagination {
+    margin-top: 20px;
+}
+
+/*** FOOTER ***/
+
+footer {
+    background: #343a40;
+    padding: 40px;
+}
+
+footer a {
+    color: #f8f9fa!important
+}
+
+/*** MODAL FOR TERMS AND CONDITIONS ***/
+
+.modal-dialog {
+	overflow-y: initial !important
+}
+
+.modal-body {
+	height: 350px;
+	overflow-y: auto;
+}
+
+/*** MODAL FOR ITEMS LIST ***/
+
+.gallery-wrap .img-big-wrap img {
+    max-width: 350px;
+    max-height: 350px;
+    display: inline-block;
+    cursor: zoom-in;
+}
+
+.gallery-wrap .img-small-wrap img {
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.gallery-wrap .img-small-wrap .item-gallery {
+    max-width: 64px;
+    max-height: 64px;
+    border: 1px solid #ddd;
+    margin: 7px 2px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.gallery-wrap .img-small-wrap .item-video {
+    width: 300px;
+    height: 250px;
+    border: 1px solid #ddd;
+    margin: 7px 2px;
+    display: inline-block;
+}
+
+.gallery-wrap .img-small-wrap {
+    text-align: center;
+}
+
+/*** PRICE TAG FOR ITEMS CARD (by Eric Fraze) ***/
+
+.pricetag {
+	display: inline-block;
+
+	width: auto;
+	height: 30px;
+
+	background-color: tomato;
+	-webkit-border-radius: 3px 4px 4px 3px;
+	-moz-border-radius: 3px 4px 4px 3px;
+	border-radius: 3px 4px 4px 3px;
+
+	border-left: 1px solid #979797;
+
+	margin-left: 19px;
+
+	position: relative;
+
+	color: white;
+	font-weight: 300;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
+	line-height: 30px;
+
+	padding: 0 10px 0 10px;
+}
+
+.pricetag:before {
+	content: "";
+	position: absolute;
+	display: block;
+	left: -15px;
+	width: 0;
+	height: 0;
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-right: 15px solid tomato;
+}
+
+.pricetag:after {
+	content: "";
+	background-color: white;
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	display: block;
+	position: absolute;
+	left: -9px;
+	top: 14px;
+}

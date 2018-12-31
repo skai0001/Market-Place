@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://java.sun.com/jsf/core">
+	
+	<f:metadata>
+		<f:event type="postAddToView" listener="#{usersController.onPageLoaded}"/>
+	</f:metadata>
+	
+    <h:head>
+        <title>Marketplace: Register</title>
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/main.css" rel="stylesheet"/>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	</h:head>
+	
+    <h:body>
+		<!-- Navigation bar -->
+		<ui:include src="/templates/Header.xhtml"/>	
+
+		<!-- Login dialog -->
+		<br/>
+		<br/>
+		<div class="container">
+			<br/>
+			<p class="text-center">
+				<b>Why register at MarketPlace?</b><br/>
+				In order to enhance your MarketPlace experience, we recommend our users to register.<br/>
+				You get FREE access to post your own ads in any categories. Its easier to browse and communicate with other users.
+			</p>
+			<br/>
+
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="card">
+						<header class="card-header">
+							<h:link class="float-right btn btn-outline-primary mt-1" outcome="/users/Login" value="Login"/>
+							<h4 class="card-title mt-2">SIGN UP</h4>
+						</header>
+
+						<article class="card-body">
+							<h:form>
+								<div class="form-group">
+									<h:outputLabel for="name" value="Name"/>
+									<h:inputText styleClass="form-control" id="name" value="#{usersController.textFields.name}" a:placeholder="Name" maxlength="30"/>
+									<small class="form-text text-muted">Length must be between 3 characters and 30 characters.</small>
+									<h:outputText style="color: #ff2100" rendered="#{usersController.textFields.nameError != null}" value="#{usersController.textFields.nameError}"/>
+								</div>
+								
+								<div class="form-group">
+									<h:outputLabel for="email" value="Email"/>
+									<h:inputText styleClass="form-control" id="email" value="#{usersController.textFields.email}" a:placeholder="Email" maxlength="128"/>
+									<h:outputText style="color: #ff2100" rendered="#{usersController.textFields.emailError != null}" value="#{usersController.textFields.emailError}"/>
+								</div>
+
+								<div class="form-group">
+									<h:outputLabel for="password" value="Password"/>
+									<h:inputSecret styleClass="form-control" id="password" value="#{usersController.textFields.password}" redisplay="true" maxlength="50"/>
+									<small class="form-text text-muted">
+										Length must be between 8 characters and 50 characters.<br/>
+										Password should contain atleast one uppercase, one lowercase and a number.
+									</small>
+									<h:outputText style="color: #ff2100" rendered="#{usersController.textFields.passwordError != null}" value="#{usersController.textFields.passwordError}"/>
+								</div>
+
+								<div class="form-group">
+									<h:outputLabel for="repeatPassword" value="Re-enter password"/>
+									<h:inputSecret styleClass="form-control" id="repeatPassword" value="#{usersController.textFields.repeatPassword}" redisplay="true" maxlength="50"/>
+									<h:outputText style="color: #ff2100" rendered="#{usersController.textFields.repeatPasswordError != null}" value="#{usersController.textFields.repeatPasswordError}"/>
+								</div>
+
+								<div class="form-group">
+									<h:commandButton styleClass="btn btn-primary btn-block" id="button" value="Register" action="#{usersController.onSignUp}"/>
+								</div>     
+								<small class="text-muted">
+									By clicking the 'Sign Up' button, you confirm that you accept our
+									<br/>
+									<a href="" data-toggle="modal" data-target="#termsModal">
+										Terms of use and Privacy Policy.
+									</a>
+									<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Terms of use and Privacy Policy</h5>
+												</div>
+												<div class="modal-body">
+													<b>Last updated:</b> (add date)<br/>
+													<br/>
+													Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the http://www.mywebsite.com (change this) website and the My Mobile App (change this) mobile application (the "Service") operated by My Company (change this) ("us", "we", or "our").<br/>
+													Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.<br/>
+													By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.<br/>
+													<br/>
+													<b>Purchases</b><br/>
+													If you wish to purchase any product or service made available through the Service ("Purchase"), you may be asked to supply certain information relevant to your Purchase including, without limitation, your …<br/>
+													The Purchases section is for businesses that sell online (physical or digital). For the full disclosure section, create your own Terms and Conditions.<br/>
+													<br/>
+													<b>Subscriptions</b><br/>
+													Some parts of the Service are billed on a subscription basis ("Subscription(s)"). You will be billed in advance on a recurring ...<br/>
+													The Subscriptions section is for SaaS businesses. For the full disclosure section, create your own Terms and Conditions.<br/>
+													<br/>
+													<b>Content</b><br/>
+													Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material ("Content"). You are responsible for the …<br/>
+													The Content section is for businesses that allow users to create, edit, share, make content on their websites or apps. For the full disclosure section, create your own Terms and Conditions.<br/>
+													<br/>
+													<b>Links To Other Web Sites</b><br/>
+													Our Service may contain links to third-party web sites or services that are not owned or controlled by My Company (change this).<br/>
+													My Company (change this) has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that My Company (change this) shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.<br/>
+													<br/>
+													<b>Changes</b><br/>
+													We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to provide at least 30 (change this) days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.<br/>
+													<br/>
+													<b>Contact Us</b><br/>
+													If you have any questions about these Terms, please contact us.<br/>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</small>                                          
+							</h:form>
+						</article>
+						
+						<div class="border-top card-body text-center">
+							Already a member? <h:link outcome="Login" value="Login"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+		<br/>
+		<br/>
+
+		<!-- Footer bar -->
+		<ui:include src="/templates/Footer.xhtml"/>	
+		
+    </h:body>
+	
+</html>

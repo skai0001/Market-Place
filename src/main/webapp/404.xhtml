@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	
+    <h:head>
+        <title>MarketPlace: 404</title>
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/404.css" rel="stylesheet"/>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </h:head>
+	
+    <h:body>
+		
+		<ui:include src="templates/Header.xhtml"/>	
+		
+        <div class="error">
+			<div class="error-code m-b-10 m-t-20">404 <i class="fa fa-warning"></i></div>
+			<h3 class="font-bold">We couldn't find the page..</h3>
+
+			<div class="error-desc">
+				Sorry, but the page you are looking for was either not found or does not exist. <br/>
+				Try refreshing the page or click the button below to go to the Homepage.
+				<div>
+					<h:link styleClass="login-detail-panel-button btn" outcome="/index">
+                        <i class="fa fa-arrow-left"></i>
+                        Goto Homepage                        
+                    </h:link>
+				</div>
+			</div>
+		</div>
+    </h:body>
+</html>

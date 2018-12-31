@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<footer class="text-light">
+		<div class="container">
+			<h:form>
+			<div class="row">
+				<div class="col-md-3 col-lg-4 col-xl-3">
+					<h5>#{msg['about']}</h5>
+					<hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25"/>
+					<p class="mb-0">
+						#{msg['msg']}
+					</p>
+				</div>
+
+				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+					<h5>#{msg['page']}</h5>
+					<hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25"/>
+					<ul class="list-unstyled">
+						<li><h:commandLink action="/index?faces-redirect=true" value="#{msg['home']}"/></li>
+						<li><h:commandLink action="/users/Login?faces-redirect=true" value="#{msg['login']}"/></li>
+						<li><h:commandLink action="/users/Register?faces-redirect=true" value="#{msg['register']}"/></li>
+						<li><h:commandLink action="/users/ForgotPassword?faces-redirect=true" value="#{msg['forgot']}"/></li>
+						<li><h:commandLink action="/users/VerifyAccount?faces-redirect=true" value="#{msg['verify']}"/></li>
+						<li><h:commandLink value="#{msg['view']}"/></li>
+						<li><h:commandLink value="#{msg['accountSettings']}"/></li>
+						<li><h:commandLink disabled="#{usersController.user == null}" action="#{usersController.onSignOut()}" value="#{msg['logout']}"/></li>
+					</ul>
+				</div>
+
+				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+					<h5>#{msg['other']}</h5>
+					<hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25"/>
+					<ul class="list-unstyled">
+						<li><h:commandLink action="/items/Create?faces-redirect=true" value="#{msg['post']}"/></li>
+						<li><h:commandLink value="#{msg['recent']}"/></li>
+						<li><h:commandLink value="Free Stuff"/></li>
+						<li><h:commandLink value="#{msg['viewads']}"/></li>
+						<li><h:commandLink value="Contact Us"/></li>
+					</ul>
+				</div>
+
+				<div class="col-md-4 col-lg-3 col-xl-3">
+					<h5>Contact</h5>
+					<hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25"/>
+					<ul class="list-unstyled">
+						<li><i class="fa fa-home mr-2"></i> MarketPlace</li>
+						<li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
+						<li><i class="fa fa-phone mr-2"></i> +1 (613)123-456</li>
+						<li><i class="fa fa-print mr-2"></i> +1 (613)123-456</li>
+					</ul>
+				</div>
+				<div class="col-12 copyright mt-3">
+					<p class="float-left">
+						<a href="#">Back to top</a>
+					</p>
+					<p class="text-right text-muted">Marketplace v1.0</p>
+				</div>
+			</div>
+			</h:form>
+		</div>
+	</footer>
+</html>

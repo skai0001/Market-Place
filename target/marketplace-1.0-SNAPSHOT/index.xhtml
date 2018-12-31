@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <title><h:outputText value="MarketPlace - #{msg['welcome']}"/></title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="#{request.contextPath}/resources/css/main.css" rel="stylesheet"/>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	</h:head>
+
+    <h:body>
+
+		<ui:include src="templates/Header.xhtml"/>		
+
+		<section class="jumbotron text-center">
+			<div class="container">
+				<h1 class="jumbotron-heading">MarketPlace: #{msg['home']}</h1>
+				<p class="lead text-muted mb-0">
+					#{msg['marketText']}
+				</p>
+			</div>
+		</section>
+
+		<h:form id="form">
+			<div class="container">			
+				<div class="row">
+					<div class="col">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">#{msg['home']}</li>
+								<li class="breadcrumb-item">#{msg['cat']}</li>
+								<li class="breadcrumb-item active" aria-current="page">#{itemsController.currentCategory}</li>
+							</ol>
+						</nav>
+						
+						<div class="form-group">
+							<h:link styleClass="btn btn-link" outcome="/items/Create">
+								<i class="fa fa-plus"/> #{msg['post']}
+							</h:link>
+						</div>
+						
+						<h:outputLabel styleClass="float-right" rendered="#{itemsController.pagination.numItems != 0}">
+							#{msg['show']} #{itemsController.pagination.pageFirstItemIndex}..#{itemsController.pagination.pageLastItemIndex} #{msg['of']} #{itemsController.pagination.numItems} items - Page <b>#{itemsController.pagination.currentPage}</b> #{msg['of']} #{itemsController.pagination.numPages}
+						</h:outputLabel>
+						<h:outputLabel styleClass="float-right" rendered="#{itemsController.pagination.numItems == 0}">
+							#{msg['show']} 0 #{msg['of']} 0 items - Page <b>1</b> #{msg['of']} 1
+						</h:outputLabel>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-3">
+						<div class="card">		
+							
+							<article class="card-group-item">
+								<h5 class="card-header bg-secondary text-white">#{msg['cat']}</h5>
+								<div class="filter-content">
+									<div class="list-group list-group-flush">
+										<ui:repeat value="#{itemsController.categories}" var="listItem">
+											<h:commandLink styleClass="list-group-item #{itemsController.currentCategory == listItem ? 'active' : ''}" action="#{itemsController.onChangeCategory(listItem)}" >
+												#{listItem} <span class="float-right badge badge-secondary round">#{listItem.equalsIgnoreCase(itemsController.categories[0]) == true ? itemsController.totalCount : itemsController.getCategoryCount(listItem)}</span>
+											</h:commandLink>
+										</ui:repeat>
+									</div>
+								</div>
+							</article>
+							
+							<article class="card-group-item">
+								<h5 class="card-header bg-secondary text-white">#{msg['price']}</h5>
+								<div class="filter-content">
+									<div class="card-body">
+										<div class="form-row">
+											<div class="form-group col-md-6">
+												<label>Min</label>
+												<h:inputText id="minPrice" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" value="#{itemsController.currentMinPrice}" styleClass="form-control"/>
+											</div>
+											<div class="form-group col-md-6 text-right">
+												<label>Max</label>
+												<h:inputText id="maxPrice" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" value="#{itemsController.currentMaxPrice}" styleClass="form-control"/>
+											</div>
+											<h:commandButton styleClass="form-group col-md-12 btn btn-primary" action="#{itemsController.onChangePriceRange(itemsController.currentMinPrice, itemsController.currentMaxPrice)}" value="Apply"/>
+											<h:commandLink styleClass="form-group col-md-12 btn" action="#{itemsController.onChangePriceRange((itemsController.currentMinPrice = 0), (itemsController.currentMaxPrice = 0))}" value="Reset Price Range"/>
+										</div>
+									</div>
+								</div>
+							</article>
+							
+							<article class="card-group-item">
+								<h5 class="card-header bg-secondary text-white">#{msg['location']}</h5>
+								<div class="filter-content">
+									<div class="card-body">
+										<div class="form-row">
+											<label>#{msg['sort']}</label>
+											<div class="input-group input-group-sm">
+												<h:inputText styleClass="form-control" a:aria-describedby="inputGroup-sizing-sm" a:placeholder="Location..."/>
+												<div class="input-group-append">
+													<button type="button" class="btn btn-primary btn-number">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+											<small style="color: #6c757d">* #{msg['postal']}</small>											
+										</div>
+									</div>
+								</div>
+							</article>
+							
+						</div>
+					</div>
+
+					<div class="col">
+						<h:panelGroup rendered="#{itemsController.pagination.numItems == 0}">
+							<div class="card flex-row flex-wrap" style="margin-bottom: 10px">
+								<div class="card-block px-5 py-5">
+									<h1 class="card-title" style="color: #adadad">
+										#{msg['nothing']}
+									</h1>
+									<br/>
+									<hr/>
+									<h6 style="color: #6c757d">
+										<h:link outcome="/items/Create" value="#{msg['post']}"/>
+										<br/>
+										<h:commandLink action="#{itemsController.onResetFilters()}" value="#{msg['reset']}"/>
+									</h6>
+								</div>
+							</div>
+						</h:panelGroup>
+						
+						<h:panelGroup rendered="#{itemsController.pagination.numItems != 0}">
+							<ui:repeat value="#{itemsController.currentPageData}" var="listItem">
+								<div class="card flex-row flex-wrap" style="margin-bottom: 10px">
+									<a href="" class="card-header border-0" data-toggle="modal" data-target="#itemModal">
+										<h:graphicImage value="#{itemsController.getItemMainImage(listItem)}" style="max-width: 128px; max-height: 128px;"/>
+									</a>
+									<div class="card-block px-2 py-2">
+										<div class="d-flex w-wrap">
+											<h4 class="card-title">#{itemsController.abrevateText(listItem.title, 45)}</h4>
+											<span class="pricetag">$#{listItem.price}</span>
+										</div>
+										
+										<p class="card-text">
+											#{itemsController.abrevateText(listItem.info, 80)}
+										</p>
+										
+										<a href="" class="btn btn-link" data-toggle="modal" data-target="#itemModal">#{msg['read']}</a>
+										<h:commandButton styleClass="btn btn-link " rendered="#{usersController.user != null}" action="#{itemsController.onSaveItem(listItem)}" value="Save"/>
+										<h:commandButton styleClass="btn btn-link" rendered="#{listItem.postOwnerId == usersController.user.id}" action="#{itemsController.onEditItem(listItem)}" value="Edit Your Ad"/>
+									</div>
+									<div class="w-100"/>
+									<div class="card-footer w-100 text-muted">
+										#{itemsController.getItemLocation(listItem)} - about #{itemsController.getItemTimeElapsed(listItem)}
+									</div>
+								</div>
+							</ui:repeat>
+							
+							<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">#{itemsController.abrevateText(itemsController.selectedItem.title, 50)}</h5>
+											<a class="close" style="text-decoration: none" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</a>
+										</div>
+
+										<div class="modal-body">
+											<div class="container">
+												<br/>
+												<div class="card border-0">
+													<div class="row">
+														<aside class="card flex-row flex-wrap border-right">
+															<article class="gallery-wrap"> 
+																<div class="img-big-wrap">
+																	<h:graphicImage value="#{itemsController.getItemMainImage(itemsController.selectedItem)}"/>
+																</div>
+
+																<div class="img-small-wrap">
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																</div>
+
+																<div class="img-small-wrap">
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																	<img class="item-gallery" src="http://hp-iranco.com/wp-content/uploads/2018/07/23-7.jpg"/>
+																</div>
+																<br/>
+
+																<div class="img-small-wrap">
+																	<p>#{msg['video=Video Available:']}</p>
+																	<iframe class="item-video" src="https://www.youtube.com/embed/tgbNymZ7vqY"/>
+																</div>
+															</article>
+														</aside>
+
+														<aside class="col">
+															<div class="card-body">
+																<h5 class="title">#{itemsController.selectedItem.title}</h5>
+
+																<dl class="param param-feature">
+																	<dt>#{msg['price']}</dt>
+																	<dd style="color: #007bff; font-size: 25px"><i class="fa fa-dollar"></i>#{itemsController.selectedItem.price}</dd>
+																</dl>
+
+																<dl class="item-property">
+																	<dt>#{msg['description']}</dt>
+																	<dd>#{itemsController.selectedItem.info}</dd>
+																</dl>
+
+																<dl class="param param-feature">
+																	<dt>#{msg['location']}</dt>
+																	<dd>
+																		<button class="btn btn-danger btn-sm" style="font-size: 10px"><i class="fa fa-map-marker"></i> Google maps</button><br/>
+																		#{itemsController.getItemLocation(itemsController.selectedItem)}
+																	</dd>
+																</dl>
+
+																<dl class="param param-feature">
+																	<dt>Ad posted by: <a href="#">#{itemsController.getItemOwnerName(itemsController.selectedItem)}</a></dt>
+																	<dd><i class="text-muted">#{msg['about']} #{itemsController.getItemTimeElapsed(itemsController.selectedItem)}</i></dd>
+																</dl>
+															</div>
+														</aside>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="modal-footer">
+											<h:commandLink styleClass="btn btn-light" rendered="#{usersController.user != null}" value="Save Ad"/>
+											<h:commandLink styleClass="btn btn-primary" value="Contact Seller"/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</h:panelGroup>
+					</div>
+
+					<div class="col-12 margin-top-10">
+						<nav aria-label="...">					
+							<ul class="pagination justify-content-end">
+								<li class="page-item">
+									<h:commandButton styleClass="page-link" disabled="#{itemsController.pagination.currentPage == 1}" action="#{itemsController.onPreviousPage}" value="Previous">
+										<f:ajax render="@form"/>
+									</h:commandButton>
+								</li>
+								<ui:repeat value="#{itemsController.currentPageNumbers}" var="listItem">
+									<li class="page-item">
+										<h:outputText styleClass="btn btn-default" rendered="#{listItem == -1}" style="margin-right: 5px; margin-left: 5px" value=" ... "/>
+									</li>
+									
+									<li class="page-item #{listItem == itemsController.pagination.currentPage ? 'active' : ''}">
+										<h:commandLink styleClass="page-link" rendered="#{listItem != -1}" action="#{itemsController.onChangePage(listItem)}" value="#{listItem}">
+											<f:ajax render="@form"/>
+										</h:commandLink>
+									</li>
+								</ui:repeat>
+								<li class="page-item">
+									<h:commandButton styleClass="page-link" disabled="#{itemsController.pagination.currentPage == itemsController.pagination.numPages}" action="#{itemsController.onNextPage}" value="Next">
+										<f:ajax render="@form"/>
+									</h:commandButton>
+								</li>
+							</ul>
+						</nav>
+
+						<h:outputLabel styleClass="float-right" rendered="#{itemsController.pagination.numItems != 0}">
+							#{msg['show']} #{itemsController.pagination.pageFirstItemIndex}..#{itemsController.pagination.pageLastItemIndex} #{msg['of']} #{itemsController.pagination.numItems} items - Page <b>#{itemsController.pagination.currentPage}</b> #{msg['of']} #{itemsController.pagination.numPages}
+						</h:outputLabel>
+					</div>
+				</div>
+			</div>
+			
+		</h:form>
+
+		<ui:include src="templates/Footer.xhtml"/>
+		
+	</h:body>
+</html>

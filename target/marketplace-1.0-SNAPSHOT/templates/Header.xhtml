@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<div class="container">
+			<h:link styleClass="navbar-brand" outcome="/index" style="color: #db4a4a; font-family: cursive; font-size: 25px">
+				<i><b>MarketPlace</b></i>
+			</h:link>
+
+			<div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+				<ul class="navbar-nav m-auto">
+					<li class="nav-item">
+						<h:link styleClass="nav-link active" outcome="/index" value="#{msg['home']}"/>
+					</li>
+					<li class="nav-item">
+						<h:link styleClass="nav-link" outcome="/index" value="#{msg['recent']}"/>
+					</li>
+				</ul>
+
+				<h:form class="form-inline my-2 my-lg-0">
+					<div class="input-group input-group-sm">
+						<h:inputText styleClass="form-control" a:aria-label="Small" a:aria-describedby="inputGroup-sizing-sm" a:placeholder="Search..."/>
+						<div class="input-group-append">
+							<button type="button" class="btn btn-secondary btn-number">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+					
+					<div class="dropdown">
+						<button type="button" class="btn btn-secondary btn-sm ml-3 dropdown-toggle" data-toggle="dropdown">
+							#{msg['language']}
+						</button>
+						<div class="dropdown-menu">
+							<h:commandLink styleClass="dropdown-item" action="#{usersController.onChangeLanguage('en')}" value="English"/>
+							<h:commandLink styleClass="dropdown-item" action="#{usersController.onChangeLanguage('fr')}" value="Français"/>
+						</div>
+					</div>
+						
+					<div class="dropdown" style="display: #{usersController.user == null ? 'none' : 'block'}">
+						<button type="button" class="btn btn-secondary btn-sm ml-3 dropdown-toggle" data-toggle="dropdown">
+							<small>Logged in:</small> <b>#{usersController.user}</b>
+						</button>
+						<div class="dropdown-menu">
+							<h:commandLink styleClass="dropdown-item" action="#{usersController.onSignOut()}" value="#{msg['logout']}"/>
+						</div>
+					</div>
+					
+					<h:link styleClass="btn btn-secondary btn-sm ml-3" outcome="/users/Login" rendered="#{usersController.user == null}">
+						<i class="fa fa-sign-in"/> #{msg['login']}
+					</h:link>
+					<h:link styleClass="btn btn-secondary btn-sm ml-3" outcome="/users/Register" rendered="#{usersController.user == null}">
+						<i class="fa fa-user-plus"/> #{msg['register']}
+					</h:link>
+				</h:form>
+			</div>
+		</div>
+	</nav>
+	
+</html>
